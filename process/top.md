@@ -1,4 +1,4 @@
-# top
+# command : top
 
 Display real time information like : CPU usage, memory usage, running processes, system load
 
@@ -14,10 +14,10 @@ Tasks: 284 total,   1 running, 283 sleeping,   0 stopped,   0 zombie
 MiB Mem :  15616.5 total,   8382.0 free,   2910.8 used,   4323.7 buff/cache
 MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.  11870.8 avail Mem 
 
-    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                        
-  18104 kartikey  20   0 1159.6g 340816 108104 S  39.2   2.1   9:14.47 code                                                           
-  18088 kartikey  20   0   32.6g 152292 112924 S  11.3   1.0   3:14.21 code                                                           
-   1525 kartikey  20   0 4860848 331488 108844 S  10.6   2.1  19:14.17 gnome-she
+PID     USER     PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                              
+18104  kartikey  20   0 1159.6g 340816 108104 S  39.2   2.1   9:14.47 code                                                           
+18088  kartikey  20   0   32.6g 152292 112924 S  11.3   1.0   3:14.21 code                                                           
+1525   kartikey  20   0 4860848 331488 108844 S  10.6   2.1  19:14.17 gnome-she
 ```
 
 ### **System Information**
@@ -94,7 +94,7 @@ MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.  11870.8 avail Mem
 top 
 ```
 
-During monitoring of process which commands do what 
+During monitoring of process which commands do what...
 
 * P => Sort process by CPU usage 
 * M => Sort process by memory usage
@@ -103,7 +103,8 @@ During monitoring of process which commands do what
 * k => kill process ( after pressing k we are prompted to enter PID )
 * r => Re-nice process ( after pressing r we are prompted to enter PID and it's new priority )
 * u => Display process for specific user 
-        ```
+
+        ```bash
         top -u kartikey
         ```
 
@@ -113,30 +114,28 @@ During monitoring of process which commands do what
 * 1 => Toggle between show stats for all individual CPU OR overall CPU usage
 * d => Same as s 
 
+### Gives update for 3 times then exit
 
 ```bash
 top -n 3
 ```
 
-Gives update for 3 times then exit
+### Redirects output into specified file 
 
 ```bash
 top -b > logs.txt
 ```
 
-Redirects output into specified file 
 
+### Sorts output result 
 
 ```bash
 top -o %CPU %MEM ...
 ```
 
-Sorts output result 
-
-
 ### How to add or remove col 
 
-```bash
+```
 top
 ```
 
@@ -145,6 +144,7 @@ top
 * Press `d` to add/remove that col from display
 
 ### How to change unit of memory
+
 ```bash
 export TOPMEM=M
 ```

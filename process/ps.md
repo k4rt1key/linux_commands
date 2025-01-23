@@ -1,21 +1,20 @@
-# ps
+# command : ps
 
-The ps command is used to display information about active processes in terminal
+The ps command is used to display information about active processes 
+
 ```bash 
 ps [options]
 ```
 
 ```bash
-ps -e 
+ps -e # Shows all processes active in terminal
 ```
-Shows all processes active in terminal
-
 
 ```bash
-ps -ef
+ps -ef # Shows detailed information aboutthat processes
 ```
 
-Shows detailed information about processes
+
 Output :
 
 ```
@@ -25,34 +24,32 @@ root           2       0  0 Jan22 ?        00:00:00 [kthreadd]
 root           3       2  0 Jan22 ?        00:00:00 [rcu_gp]
 ```
 
-PPID = Parent PID
-STIME = Start time
+- PPID = Parent PID
+- STIME = Start time
+- TTY = Terminal Type
+- C = CPU utilization
 
 
-Show processes for the current user:
+### Show processes for the particular user:
 
 ```bash
 ps -u <username>
 ```
 
-Displays processes for a specific user.
-
-Show processes with a specific PID:
+### Show processes with a specific PID:
 
 ```bash
 ps -p <pid>
 ```
 
-Displays information for the process with the specified PID.
-
-Show processes in a tree format:
+### Show processes in a tree format:
 
 ```bash
 ps -ejH
 ```
 
 
-Show processes with memory usage:
+### Show processes with memory usage:
 
 
 ```bash
@@ -64,6 +61,7 @@ ps aux --sort=-%cpu
 ps aux --sort=-%mem
 ```
 
+#### Output : 
 ```
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root           1  0.0  0.0 169808 13112 ?        Ss   Jan22   0:03 /sbin/init splash
