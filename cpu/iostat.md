@@ -1,23 +1,24 @@
-# iostat
+# Command : iostat
 
-- Used for monitor i/o devices
-- Can monitor average transfer rate 
+Used for monitor system's i/o activity
 
 ```bash
 iostat [options] [device] [interval] [count]
 ```
 
-- Result of `iostat`
+### Result of `iostat`
+
 ```
 Device             tps    kB_read/s    kB_wrtn/s    kB_dscd/s    kB_read    kB_wrtn    kB_dscd
 loop0             0.00         0.00         0.00         0.00         17          0          0
 loop1             0.22        11.62         0.00         0.00     816183          0          0
 loop10            0.00         0.00         0.00         0.00        349          0          0
 ```
+
 | Parameter                            | Description                                                                                         |
 |--------------------------------------|-----------------------------------------------------------------------------------------------------|
 | Device                               | Name of the storage device                                                                          |
-| tps                                  | Transfer rate / sec ( i + o / sec)                                                                  |
+| tps                                  | Transfer rate ( Number of R/W request handled per second)                                           |
 | kB_wrtn/s                            | KB written / sec                                                                                    |
 | kB_dscd/s                            | KB discarded / sec                                                                                  |
 | kB_read                              | Total amount of data read from the device since system started                                      |
@@ -33,49 +34,53 @@ loop10            0.00         0.00         0.00         0.00        349        
 
 
 
-#### -c  
-
-CPU stats
+## For getting CPU information
 
 ```bash
 iostat -c
 ```
 
-Output
-```
-Linux 5.15.0-130-generic (kartikey)     01/23/2025      _x86_64_        (8 CPU)
+### Output will contain
 
-avg-cpu:  %user   %nice %system %iowait  %steal   %idle
-           4.31    0.01    1.20    0.08    0.00   94.41
+- Kernal version
+- Hostname
+- Date
+- CPU architecture
+- Total cors
 
-```
+- avg-cpu
+- %user  
+- %nice 
+- %system 
+- %iowait  
+- %steal   
+- S%idle
 
-#### -d
 
-Display devices utilization ( almost same as simple `iostat` command )
-
-```bash
-iostat -d
-```
-
-#### -x 
-
-Shows extended stats
+## For getting more information
 
 ```bash
 iostat -x
 ```
 
-Output
-```
-Linux 5.15.0-130-generic (kartikey)     01/23/2025      _x86_64_        (8 CPU)
+### Output will contain
 
-avg-cpu:  %user   %nice %system %iowait  %steal   %idle
-           4.32    0.01    1.20    0.08    0.00   94.40
+- Kernal version
+- Hostname
+- Date
+- CPU architecture
+- Total cors
 
-Device   r/s  rkB/s rrqm/s  %rrqm r_await rareq-sz  w/s  wkB/s wrqm/s  %wrqm w_await wareq-sz  d/s  dkB/s   drqm/s  %drqm d_await dareq-sz  aqu-sz  %util
+- avg-cpu
+- %user  
+- %nice 
+- %system 
+- %iowait  
+- %steal   
+- S%idle
 
-```
+And...
+
 
 | **Term**       | **Description**                                                                 |
 |----------------|---------------------------------------------------------------------------------|
