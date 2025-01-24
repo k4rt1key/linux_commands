@@ -48,7 +48,6 @@ List All device drives available in my system & exclude loop devices from it
 df -h | grep -v 'loop'
 # or
 iostat -d | grep -v 'loop' | awk 'NR > 3 {print $1}'
-
 ```
 
 # Practical 20
