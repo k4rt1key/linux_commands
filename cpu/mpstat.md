@@ -1,4 +1,4 @@
-# Command : iostat
+# Command : mpstat
 
 - Used for getting CPU usage stats
 - Can monitor workload distribution across cpus
