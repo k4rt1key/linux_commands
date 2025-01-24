@@ -29,7 +29,6 @@ root           3       2  0 Jan22 ?        00:00:00 [rcu_gp]
 - TTY = Terminal Type
 - C = CPU utilization
 
-
 ### Show processes for the particular user:
 
 ```bash
@@ -70,3 +69,24 @@ root           3  0.0  0.0      0     0 ?        I<   Jan22   0:00 [rcu_gp]
 root           4  0.0  0.0      0     0 ?        I<   Jan22   0:00 [rcu_par_gp]
 ```
 
+### Show processes with threads 
+
+```bash 
+ps -eLf
+```
+
+#### Output 
+- LWP = The LWP column shows the thread ID (TID) of individual threads within a process.
+- NLWP = Number of LWP
+
+### When to use ps aux and when ps -eLf
+
+| **Use Case**                           | **`ps aux`** | **`ps -eLf`** |
+|----------------------------------------|--------------|---------------|
+| **Monitor overall process resource usage** | ✅            | ❌             |
+| **Monitor memory/CPU usage of processes** | ✅            | ❌             |
+| **Find a specific process by name**     | ✅            | ❌             |
+| **Monitor threads of a process**        | ❌            | ✅             |
+| **Debug multithreaded applications**    | ❌            | ✅             |
+| **Track thread IDs (LWP)**              | ❌            | ✅             |
+| **Count threads in a process**          | ❌            | ✅             |

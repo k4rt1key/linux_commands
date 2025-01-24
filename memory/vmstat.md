@@ -104,3 +104,9 @@ vmstat -d
 
 **Note:** A sector is typically 512 bytes or 1 KB, depending on the disk configuration.
 
+
+
+### Per second updatation
+
+```bash
+vmstat 2 # appends updated metrics after every 1 second
