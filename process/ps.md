@@ -47,6 +47,14 @@ ps -p <pid>
 ps -ejH
 ```
 
+### ps -a -u -x
+
+```bash
+ps -a # all process not assosiated with terminal
+ps -u # all process of curr user
+ps -x # all process which has not controlling terminal ( bg jobs )
+```
+
 
 ### Show processes with memory usage:
 
