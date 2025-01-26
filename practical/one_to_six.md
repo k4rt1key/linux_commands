@@ -49,4 +49,3 @@ Get load avg for 1min, 5min and 15min
 ```bash
 uptime | awk '{print "1MIN:"  $8 " 5MIN: "  $9 " 15MIN: "  $10}'
 ```
-

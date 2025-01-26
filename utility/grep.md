@@ -136,25 +136,8 @@ grep -o 'pattern' file.txt
 grep '^.{5}$' file.txt
 ```
 
-### 22. Exclude Binary Files
-```bash
-# Ignore binary files while searching
-grep --binary-files=without-match 'pattern' file.txt
-```
 
-### 23. Highlight Matches
-```bash
-# Highlight matches in the output
-grep --color=always 'pattern' file.txt
-```
-
-### 24. Suppress Error Messages
-```bash
-# Suppress error messages for nonexistent or unreadable files
-grep -s 'pattern' file.txt
-```
-
-### 25. Search in Multiple Files
+### 22. Search in Multiple Files
 ```bash
 # Search for "pattern" in multiple files
 grep 'pattern' file1.txt file2.txt
