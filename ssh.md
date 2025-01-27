@@ -11,11 +11,32 @@ ssh -p 2222 [username]@[remote_host] # specifying port
 
 ```bash
 # generating private keys
+sudo apt update
+sudo apt install openssh-server
+
 ssh-keygen -t rsa -b 4096
+
+# ~/.ssh/id_rsa
+
 ssh-copy-id [username]@[remote_host]
-# now ssh into any device
-ssh [username]@[remote_host]
+#or
+cat ~/.ssh/id_rsa.pub
+echo "public-key-content" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+
+sudo nano /etc/ssh/sshd_config
+
+# set
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+PasswordAuthentication no
+
+sudo systemctl restart sshd
+
 ```
+
+```bash
+ssh -i /a/b/c/key hostname@ip
 
 ## ssh config
 
