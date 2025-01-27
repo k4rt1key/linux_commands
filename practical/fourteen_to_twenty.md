@@ -32,6 +32,7 @@ List name of zombie processes & interrupted processes
 ps aux | awk '$8 ~ /I/ {count++} END {print count}'
 ps aux | awk '$8 ~ /Z/ {count++} END {print count}'
 ```
+
 # Practical 18
 
 List all partitions & print sector wise details of each partition

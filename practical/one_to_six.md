@@ -38,7 +38,7 @@ ifconfig | awk '{ if(NR == 23){print "Ip Address: " $2} if(NR == 19){print "INET
 Get contex switches per second of each process
 
 ```bash
-pidstat -w | awk '{print "PID: " $4 "\n"  "Context switches/second: " $6 + $5}'
+pidstat -w | awk '{print "PID: " $4 "\n"  "Context switches/second: " $6 + $7}'
 ```
 
 
