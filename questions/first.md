@@ -12,3 +12,6 @@ what is irix mode
 
 - **IRIX Mode On:** : CPU usage is calculated as a percentage of the total available CPUs. For example, if a process uses 100% of one CPU in a 4-core system, it will show as 25% CPU usage.
 - **IRIX Mode Off:** : CPU usage is calculated as a percentage of one CPU. For example, if a process uses 100% of one CPU in a 4-core system, it will show as 100% CPU usage.
+
+
+# question 3 

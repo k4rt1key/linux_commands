@@ -7,16 +7,16 @@
 
 ## files inside proc and it's description
 
-### proc/cpuinfo
+### /proc/cpuinfo
 
 **Description**: Provides detailed information about the CPU(s), including model, speed, and cores.
 
-### proc/meminfo
+### /proc/meminfo
 
 **Description**: Displays memory usage details, such as total and available RAM.
 
-### proc/uptime
+### /proc/uptime
 
 **Description**: Shows the system uptime and idle time in seconds.
 
-### 
+

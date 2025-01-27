@@ -58,3 +58,16 @@ Now we can ssh using
 ssh myserver
 ```
 
+
+### how to findout ssh in our system
+
+```bash
+who
+```
+
+#### output 
+```
+kartikey :0           2025-01-26 11:30 (:0)
+kartikey pts/1        2025-01-27 11:56 (10.20.41.113)
+```
+
