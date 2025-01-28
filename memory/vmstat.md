@@ -23,8 +23,8 @@ vmstat [options] [delay] [count]
 | `r`    | Number of processes waiting for CPU time     | Count |
 | `b`    | Number of processes in uninterruptible sleep | Count |
 
-- **uninterruptible sleep**
-a process state where a program is waiting for a specific resource (like a disk operation to complete) and cannot be interrupted by any signals or events until that resource becomes available
+- **Uninterruptible sleep**
+A process state where a program is waiting for a specific resource (like a disk operation to complete) and cannot be interrupted by any signals or events until that resource becomes available
 
 #### Memory Metrics
 
@@ -40,8 +40,12 @@ a process state where a program is waiting for a specific resource (like a disk 
 - **Buffered v/s cached memory**
 Buffer memory is used to temporarily store data during transfers, while cache memory stores frequently accessed data and instructions. 
 
-- **Active v/s inactive memory**
-"active memory" refers to memory that is currently being actively used by running processes, while "inactive memory" refers to memory that has not been accessed recently and can be readily reclaimed by the system if needed
+- **Active v/s Inactive memory**
+"Active memory" refers to memory that is currently being actively used by running processes, while "Inactive memory" refers to memory that has not been accessed recently and can be readily reclaimed by the system if needed
+
+- **Inactive v/s Free memory**
+"Inactive memory" is considered **reserved** for a potential future use by a process that may need it again, while "Free memory" is truly available to be **allocated to any process right away.** 
+
 
 ### Swap Metrics
 
