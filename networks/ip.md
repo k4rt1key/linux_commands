@@ -4,7 +4,8 @@
 
 ```bash
 # to show network information
-ip addr show #or
+ip addr show 
+#or
 ip a 
 
 ip route show 
@@ -13,4 +14,6 @@ ip route show
 ip link show 
 
 
+# to see default route
+ip route | grep default # ip route same as netstat -r
 ```

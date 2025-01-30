@@ -7,6 +7,8 @@
 nmap -sn 192.168.1.0/24
 nmap -sn -p 1234,5000,6000 192.168.1.0/24
 nmap -Pn -p 1-65535 10.20.41.115
+nmap 8.8.8.8 -p 22 # to check whether port is avilable or not
+
 ```
 
 - sn (Ping Scan)
