@@ -16,4 +16,6 @@ ip link show
 
 # to see default route
 ip route | grep default # ip route same as netstat -r
+
+
 ```
