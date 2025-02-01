@@ -1,71 +1,62 @@
-# ssh in linux
+# SSH in Linux
 
-SSH (Secure Shell) is a cryptographic network protocol used for securely accessing and managing remote systems over an unsecured network. It provides a secure channel over an insecure network by encrypting the data transmitted between the client and the server.
+SSH (Secure Shell) is a cryptographic network protocol used for securely accessing and managing remote systems over an unsecured network. It provides a secure channel by encrypting the data transmitted between the client and the server.
+
+---
+
+## Basic SSH Usage
+
+To connect to a remote host using SSH:
 
 ```bash
-ssh [username]@[remote_host] 
-ssh -p 2222 [username]@[remote_host] # specifying port
+ssh [username]@[remote_host]
+ssh -p 2222 [username]@[remote_host] # to speify port
 ```
 
-## ssh with private keys
+## SSH with private keys
 
 ```bash
-# generating private keys
+# STEP 1 : INSTALLATION 
 sudo apt update
 sudo apt install openssh-server
 
+# STEP 2 : GENERATING PRIVATE KEYS
 ssh-keygen -t rsa -b 4096
 
-# ~/.ssh/id_rsa
-
+# STEP 3 : COPY PUBLIC KEY TO AUTHORISED KEYS
 ssh-copy-id [username]@[remote_host]
-#or
+
+# OR 
+
 cat ~/.ssh/id_rsa.pub
 echo "public-key-content" >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 
+# STEP 4 : CHANGE CONFIG FILE
 sudo nano /etc/ssh/sshd_config
 
-# set
+# SET 
 PubkeyAuthentication yes
 AuthorizedKeysFile .ssh/authorized_keys
 PasswordAuthentication no
 
+# STEP 5 : RESTART SERVICE
 sudo systemctl restart sshd
 
-```
 
-```bash
-ssh -i /a/b/c/key hostname@ip
-
-## ssh config
-
-```bash
-~/.ssh/config
-```
-
-```bash
-Host myserver
-    HostName 192.168.1.100
-    User user
-    Port 2222
-    IdentityFile ~/.ssh/id_rsa
-```
-
-Now we can ssh using 
-
-```bash
-ssh myserver
+# STEP 6 : SSH WITH PRIVATE KEY
+ssh -i /path/to/key hostname@ip
 ```
 
 
-### how to findout ssh in our system
+### How to findout who is SSHed into our system
 
 ```bash
 who
 ```
 
-#### output 
+**Output will looks like this :**
+
 ```
 kartikey :0           2025-01-26 11:30 (:0)
 kartikey pts/1        2025-01-27 11:56 (10.20.41.113)

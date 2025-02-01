@@ -1,8 +1,8 @@
 # Tcpdump
 
-**Used for monitoring network packets**
+- Similar as wireshark
 
 ```bash
-tcpdump -vv host kartikey and port 443 # -vv for verbose 
+tcpdump -vvv host kartikey and port 443 # Verbose : -vv
 tcpdump -i [interface] 
 ```

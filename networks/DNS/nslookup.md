@@ -3,7 +3,9 @@
 - Used to query DNS server to obtain domain name or ip
 
 ```bash
-nslookup google.com
+nslookup google.com 
+nslookup -type=A google.com # IPV4
+nslookup -type=AA google.com # IPV4 & IPV6
 ```
 
 ## OUTPUT
@@ -19,10 +21,3 @@ Name:   google.com
 Address: 2404:6800:4009:820::200e
 ```
 
-```bash
-nslookup -type=A google.com # ipv4
-nslookup -type=AA google.com # ipv4 and 6
-nslookup -type=MX google.com  # for mail exchange server
-nslookup -type=NS google.com  # for name server
-nslookup -type=MX google.com  # for mail exchange server
-```
