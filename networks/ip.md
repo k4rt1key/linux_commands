@@ -1,21 +1,12 @@
 # ip 
 
-- Used for managing network interfaces 
+- Show / manipulate routing and network devices.
+
+## To show network info
 
 ```bash
-# to show network information
-ip addr show 
-#or
-ip a 
-
-ip route show 
-
-# to see link layer information
-ip link show 
-
-
-# to see default route
-ip route | grep default # ip route same as netstat -r
-
-
+ip addr # ip addresses
+ip route # routing table
+ip link # network devices
 ```
+

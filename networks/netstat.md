@@ -1,6 +1,6 @@
-# Command : netstat 
+# netstat 
 
-Used for viewing network connections, routing tables, interface stats
+- Used for viewing network connections, routing tables, interface stats
 
 ```bash
 netstat
@@ -9,27 +9,33 @@ netstat -l # for viewing open ports
 netstat -s # for viewing network protocol wise stats
 netstat -r # for viewing router table
 netstat -p # for viewing process to port mapping
-netstat -i # Displays network interface statistics, such as packets transmitted and received. useful for identifying issues like packet loss.
+netstat -i # for viewing network interface statistics
 
 ```
 
 ## OUTPUT 
 
 ```
+netstat -tunlap
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
 Active Internet connections (servers and established)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State      
-tcp        0      0 localhost:ipp           0.0.0.0:*               LISTEN     
-tcp        0      0 localhost:domain        0.0.0.0:*               LISTEN     
-tcp        0      0 kartikey:46916          52.123.173.232:https    ESTABLISHED
-tcp        0      1 kartikey:51220          10.20.40.75:5405        SYN_SENT   
-tcp        0      0 kartikey:42268          103.59.211.137:https    ESTABLISHED
-tcp        0      0 kartikey:44722          bom12s19-in-f2.1e:https ESTABLISHED
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   
+tcp        0      0 10.20.40.28:47928       52.108.44.3:443         ESTABLISHED 3087/chrome --type= 
+tcp        0      0 10.20.40.28:35608       20.189.173.9:443        ESTABLISHED 3443/Code --standar 
+tcp        0      0 10.20.40.28:43178       172.64.155.209:443      ESTABLISHED 3087/chrome --type= 
+tcp        0      0 10.20.40.28:38616       172.64.152.233:443      ESTABLISHED 3087/chrome --type= 
+tcp        0      0 10.20.40.28:55794       52.123.168.134:443      ESTABLISHED 3087/chrome --type= 
 ```
 
-Recv-Q = Number of bytes in receive queue
-Send-Q = Number of bytes in send queue
-Foreign Address = Ip of destination
-State = State of connection
+
+- Recv-Q = Number of bytes in receive queue
+- Send-Q = Number of bytes in send queue
+- Foreign Address = Ip of destination
+- State = State of connection
 
 - LISTEN → Waiting for incoming connections.
 - SYN_SENT → Sent connection request, awaiting response.

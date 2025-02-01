@@ -1,11 +1,12 @@
 # commands: cron
 
-- To edit the cron jobs for the current user, run the following command:
+## To edit the cron jobs for the current user
 
 ```bash
 crontab -e
 ```
 
+**Rules for time**
 ```
 * * * * * /path/to/command
 │ │ │ │ │
@@ -17,14 +18,15 @@ crontab -e
 └────────── Minute (0 - 59)
 ```
 
-- Add command 
-```bash
+**Add cronjob**
+```
 * * * * * /path/to/command
 ```
 
+**List all cronjobs**
 
 ```bash
 crontab -l # lists all jobs
-crontab -r # remove all jobs
+crontab -e # remove all jobs
 ```
 
