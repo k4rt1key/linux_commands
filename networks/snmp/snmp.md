@@ -1,142 +1,125 @@
-# SNMPv3 Configuration and Usage Guide
+# SNMP 
 
-## 1. SNMPv3 Configuration Parameters
+- Simple network management protocol 
 
-### Basic User Creation Command
+## HOW SNMP WORKS 
+
+- Snmp runs demon process in agent : snmpd
+- Snmp Multiplexing protocol ( SMUX ) used for communication between SNMP agent and peer processes
+- SMUX is responsible to send traps to SNMP agent
+
+## SNMP AGENT
+
+- Snmp agent is demon running on background to collect data about network interfaces, cpu, memory
+
+- Port 161 = used for communication of manager and agent
+- Port 162 = used for agent to send trap and manager to listen trap
+
+## SNMP MIB
+
+- Management Information Base 
+- DB ( Usally of 10KB in size )
+- Stores instantaneous copy of curr state of system
+- MIB extensions = .mib and .txt 
+- These are just schemas and definations which describes what to monitor
+- Actual values are taken form /proc dir
+- Mib files location
 ```bash
-sudo net-snmp-create-v3-user -ro -A <auth_password> -X <enc_password> -a SHA -x AES snmpv3user
+cd /usr/share/snmp/mibs/
 ```
+- Rules are written in SMI ( structure of management information )
 
-**Parameter Breakdown:**
-- `-ro`: Grants read-only access (vs. `-rw` for read-write)
-- `-A <auth_password>`: Sets authentication password (SHA hashed)
-- `-X <enc_password>`: Sets encryption password (AES encrypted)
-- `-a SHA`: Specifies SHA for authentication
-- `-x AES`: Specifies AES for encryption
-- `snmpv3user`: Username for SNMPv3 communication
+**Why to use snmp if we have ssh**
 
-**Security Note:**
-SNMPv3 implements dual-password security:
-- Authentication password verifies user legitimacy
-- Encryption password protects data transmission
+- UDP 
+    - Less overhead & stateless
+- Traps 
+    - Faster & lighter in comparision to cronjobs 
+- Device support
+    - SSH Only works on devices that supports shell env
+    - SNMP is industry standard and it's avilable in all devices
+    
 
-### Configuration File Settings
-Location: `/etc/snmp/snmpd.conf`
-```bash
-rouser snmpv3user auth -V systemview
-```
+## SNMP COMMUNITY
 
-**Components:**
-- `rouser`: Defines read-only user
-- `auth`: Requires authentication
-- `-V systemview`: Restricts user to specific OID subset
+### 1. SNMP MIB View
 
-## 2. SNMPv3 Query Commands
+- **MIB (Management Information Base):**  
+  A database containing information (or “objects”) about a network device.
 
-### Fetch Specific OID (snmpget)
-```bash
-snmpget -v3 -u snmpv3user -l authPriv -a SHA -A <auth_pass> -x AES -X <enc_pass> <agent_IP> 1.3.6.1.2.1.1.5.0
-```
+- **MIB View:**  
+  A selected group of MIB objects relevant to a specific network element (e.g., router, switch).  
+  *Note:* The objects in the view do not need to be from one continuous branch of the MIB tree.
 
-**Parameters:**
-- `-v3`: SNMP version 3
-- `-u snmpv3user`: Username
-- `-l authPriv`: Security level
-- `-a SHA`: Authentication protocol
-- `-x AES`: Encryption protocol
-- `-A/-X`: Authentication/encryption passwords
 
-**Security Levels:**
-- `noAuthNoPriv`: No security
-- `authNoPriv`: Authentication only
-- `authPriv`: Full security
+### 2. SNMP Access Modes
 
-**Example Output:**
-```
-SNMPv2-MIB::sysName.0 = STRING: ubuntu-server
-```
+- **READ-ONLY:**  
+  Allows viewing (reading) of the data only.
 
-### Fetch OID Subtree (snmpwalk)
-```bash
-snmpwalk -v3 -u snmpv3user -l authPriv -a SHA -A <auth_pass> -x AES -X <enc_pass> <agent_IP> 1.3.6.1.2.1.1
-```
+- **READ-WRITE:**  
+  Allows both viewing (reading) and modifying (writing) the data.
 
-**Example Output:**
-```
-SNMPv2-MIB::sysDescr.0 = STRING: Linux ubuntu-server 5.4.0-80-generic
-SNMPv2-MIB::sysUpTime.0 = Timeticks: (123456) 0:20:34.56
-```
 
-## 3. Essential Monitoring OIDs
+### 3. SNMP Community Profile
 
-### CPU Usage
-- OID: `1.3.6.1.4.1.2021.10.1.3.1` (1-minute load average)
-- Example: `UCD-SNMP-MIB::laLoad.1 = STRING: 0.25`
+- **Definition:**  
+  A combination of:
+  - An **access mode** (READ-ONLY or READ-WRITE).
+  - A **MIB view** (the subset of MIB objects being accessed).
 
-### Memory Usage
-- OID: `1.3.6.1.4.1.2021.4.5.0` (Total RAM in KB)
-- Example: `UCD-SNMP-MIB::memTotalReal.0 = INTEGER: 8048864`
+- **How It Works:**  
+  For each variable in the MIB view:
+  - If marked **“none”**: The variable cannot be used.
+  - If marked **“read-write”** or **“write-only”** and the profile is READ-WRITE:  
+    The variable can be used for reading (get), writing (set), and sending notifications (traps).
+  - Otherwise:  
+    The variable can be used for reading (get) and sending traps only.
+  - **Special Note:**  
+    Reading a **“write-only”** variable may yield device-specific results.
 
-### Disk Usage
-- OID: `1.3.6.1.4.1.2021.9.1.6.1` (Root partition usage)
-- Example: `UCD-SNMP-MIB::dskUsed.1 = INTEGER: 4567890`
 
-## 4. SNMPv3 vs v1/v2c Comparison
+### 4. SNMP Access Policies
 
-| Feature | SNMPv1/v2c | SNMPv3 |
-|---------|------------|---------|
-| Security Model | Community strings | User-based security |
-| Authentication | None (plaintext) | SHA/MD5 |
-| Access Control | Limited | Granular |
+- **Definition:**  
+  An SNMP access policy links:
+  - A **SNMP community** (a group or set of users) with
+  - A **SNMP community profile** (the combined access mode and MIB view).
 
-## 5. Common Interview Questions
+- **Purpose:**  
+  The policy defines which parts of the network device’s data the community can access and the permitted operations.
 
-### Q1: MIB Purpose
-MIB maps numeric OIDs to readable names and defines exposed parameters.
 
-### Q2: Dual Password System
-- Authentication password prevents impersonation
-- Encryption password prevents eavesdropping
+## OID
 
-### Q3: AuthPriv Meaning
-Indicates both authentication and privacy (encryption) are enabled.
 
-### Q4: OID Structure
-Example breakdown of 1.3.6.1.2.1.1.5.0:
-- 1: ISO
-- 3: Org
-- 6: DoD
-- 1: Internet
-- 2: mgmt| Encryption | None | AES/DES |
+An Object Identifier (OID) uniquely identifies MIB objects in SNMP using a hierarchical, dot-separated numerical tree. Each OID represents a path in this tree, ensuring global uniqueness and systematic organization.
 
-- 1: mib-2
-- 1: system
-- 5: sysName
-- 0: instance
+## Types of OIDs
 
-### Q5: Snmpwalk vs Snmpget
-- `snmpget`: Single OID retrieval
-- `snmpwalk`: Full subtree retrieval
+### 1. Scalar Object OIDs
+- **Definition:**  
+  Represents a single, unique instance of an object on a device.
+- **Identification:**  
+  Always ends with `.0`.
+- **Example:**  
+  - Base OID for `sysDescr`: `1.3.6.1.2.1.1.1`  
+  - Instance OID for `sysDescr`: `1.3.6.1.2.1.1.1.0`
 
-### Q6: Timeticks
-Unit of measurement: 1/100th second
-Example: (123456) 0:20:34.56 = 1234.56 seconds
+---
 
-## 6. Security Best Practices
+### 2. Tabular Object OIDs
+- **Definition:**  
+  Represents objects that are part of a table (or vector) in the MIB. Each row in the table is a vector of related objects.
+- **Identification:**  
+  The base OID defines a column, and an instance index (e.g., `.1`, `.2`, `.3`, etc.) is appended to denote a specific row.
+- **Example:**  
+  - Base OID for `ifDescr`: `1.3.6.1.2.1.2.2.1.2`  
+  - Instance for the first row: `1.3.6.1.2.1.2.2.1.2.1`  
+  - Instance for the second row: `1.3.6.1.2.1.2.2.1.2.2`
 
-1. Avoid community strings with SNMPv3
-2. Prefer AES-256 over deprecated DES
-3. Implement firewall restrictions:
-```bash
-sudo ufw allow from <manager_IP> to any port 161 proto udp
-```
+![OID_STRUCTURE](Images/oid.png)
 
-## Quick Reference
-
-| Term | Definition |
-|------|------------|
-| OID | Parameter identifier in MIB tree |
-| MIB | OID to name mapping database |
-| authPriv | Authentication + Encryption |
-| sysUpTime | Agent uptime in timeticks |
-| SNMPv3 | Secure SNMP with user authentication |
+### NOTE : 
+- Sometime insted of full OID, some part of OID is replaced by simplified name ( MIB name )
+- Converting OID with MIB name to numeric OID is called **OID resolution** or **MIB name translation** 
