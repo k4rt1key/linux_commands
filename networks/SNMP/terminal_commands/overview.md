@@ -22,7 +22,7 @@ SNMPv3 implements dual-password security:
 
 ### Configuration File Settings
 Location: `/etc/snmp/snmpd.conf`
-```bash
+```
 rouser snmpv3user auth -V systemview
 ```
 
