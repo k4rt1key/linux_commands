@@ -6,7 +6,7 @@
 ## For getting stats about dns cache
 
 ```bash
-sudo systemd-resolve --statistics # for getting stats about dns cache
+sudo resolvectl statistics # for getting stats about dns cache
 ```
 
 **OUTPUT**
